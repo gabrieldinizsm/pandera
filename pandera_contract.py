@@ -68,10 +68,15 @@ schema = pa.DataFrameSchema({
     'int_column': pa.Column('int32', checks=[
         pa.Check(lambda x: x >= 1,
                  error="Value should be equal or higher than 1"),
-        pa.Check(lambda x: x <= 10,
+        pa.Check(lambda x: x <= 100,
                  error="Value should be equal or lower than 100")
     ]),
-    'float_column': pa.Column('float64'),
+    'float_column': pa.Column('float64', checks=[
+        pa.Check(lambda x: x >= 1.0,
+                 error="Value should be equal or higher than 1"),
+        pa.Check(lambda x: x <= 100.0,
+                 error="Value should be equal or lower than 100")
+    ]),
     'datetime_column': pa.Column('datetime64'),
     'email_column': pa.Column(str, checks=[
         pa.Check.str_contains('@', error="Email must contain @"),
