@@ -65,7 +65,12 @@ schema = pa.DataFrameSchema({
         pa.Check(lambda x: x.isin(
             ['grape', 'apple', 'banana']), error="Unknown fruit")
     ]),
-    'int_column': pa.Column('int32'),
+    'int_column': pa.Column('int32', checks=[
+        pa.Check(lambda x: x >= 1,
+                 error="Value should be equal or higher than 1"),
+        pa.Check(lambda x: x <= 10,
+                 error="Value should be equal or lower than 100")
+    ]),
     'float_column': pa.Column('float64'),
     'datetime_column': pa.Column('datetime64'),
     'email_column': pa.Column(str, checks=[
