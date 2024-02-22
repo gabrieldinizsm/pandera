@@ -7,10 +7,10 @@ from datetime import datetime
 
 def generate_fake_email() -> str:
     """ 
-    Função para gerar alguns emails fakes.
+    Function to generate some fake emails.
 
     Returns:
-        str: Um fake email.
+        str: A fake email.
     """
     fake = Faker()
     faker = fake.email()
@@ -19,20 +19,21 @@ def generate_fake_email() -> str:
 
 def generate_fake_df(num_rows: int) -> pd.DataFrame:
     """
-    Função para gerar um DataFrame mockado com colunas pré-definidas e valores aleatórios.
+    Function to generate a mocked DataFrame with pre defined columns and random values.
 
-    O Dataframe consistirá em 6 colunas: 
-        string_column: String que irá variar entre apple, banana e grape
-        int_column: Inteiro que varia de 1 a 100
-        float_column: Float que varia de 1.0 a 100.0
-        datetime_column: Datetime que irá variar entre 2010-01-01' e '2024-12-31'
-        email_column: String em formato fake de email.
+    The DataFrame consists in 6 columns:
+        string_column: String that will vary in apple, banana and grape
+        int_column: Int that varies from 1 to 100
+        float_column: Int that varies from 1.0 to 100.0
+        datetime_column: Datetime that goes from 2010-01-01' to '2024-12-31'
+        email_column: String containing a fake email
+            Example: johndoe@example.com
 
     Args:
-        num_rows(int): Um inteiro informado o número de linhas fakes no dataframe.
+        num_rows(int): An integer containing the number of rows of the DataFrame and its columns.
 
     Returns:
-        pd.DataFrame: Um pandas Dataframe contendo registros fakes.
+        pd.DataFrame: A pandas DataFrame with mocked values.
     """
 
     try:
