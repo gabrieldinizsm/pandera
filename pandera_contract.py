@@ -5,9 +5,6 @@ from faker import Faker
 from datetime import datetime
 
 
-np.random.seed(42)
-
-
 def generate_fake_email() -> str:
     """ 
     Função para gerar alguns emails fakes.
@@ -62,18 +59,25 @@ def generate_fake_df(num_rows: int) -> pd.DataFrame:
 
 
 schema = pa.DataFrameSchema({
-    'string_column': pa.Column(str),
+    'string_column': pa.Column(str, checks=[
+        pa.Check(lambda x: x.str.isalpha(),
+                 error="Only alphabet lettters alowed"),
+        pa.Check(lambda x: x.isin(
+            ['grape', 'apple', 'banana']), error="Unknown fruit")
+    ]),
     'int_column': pa.Column('int32'),
     'float_column': pa.Column('float64'),
     'datetime_column': pa.Column('datetime64'),
     'email_column': pa.Column(str, checks=[
-        pa.Check.str_contains('!', error="Email must contain @"),
+        pa.Check.str_contains('@', error="Email must contain @"),
         pa.Check.str_contains('.', error="Email must contain . (dot)")
     ])
 })
 
 
 if __name__ == '__main__':
+
+    np.random.seed(42)
 
     try:
         df = generate_fake_df(100)
