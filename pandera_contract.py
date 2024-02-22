@@ -61,15 +61,13 @@ def generate_fake_df(num_rows: int) -> pd.DataFrame:
         raise (e)
 
 
-schema = pa.DataFrameSchema(
-    {
-        'string_column': pa.Column(str),
-        'int_column': pa.Column('int32'),
-        'float_column': pa.Column(float),
-        'datetime_column': pa.Column(datetime),
-        'email_column': pa.Column(str)
-    }
-)
+schema = pa.DataFrameSchema({
+    'string_column': pa.Column(str),
+    'int_column': pa.Column('int32'),
+    'float_column': pa.Column('float64'),
+    'datetime_column': pa.Column('datetime64'),
+    'email_column': pa.Column(str)
+})
 
 
 if __name__ == '__main__':
