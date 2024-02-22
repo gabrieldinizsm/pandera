@@ -73,11 +73,14 @@ schema = pa.DataFrameSchema({
     ]),
     'float_column': pa.Column('float64', checks=[
         pa.Check(lambda x: x >= 1.0,
-                 error="Value should be equal or higher than 1"),
+                 error="Value should be equal or higher than 1.0"),
         pa.Check(lambda x: x <= 100.0,
-                 error="Value should be equal or lower than 100")
+                 error="Value should be equal or lower than 100.0")
     ]),
-    'datetime_column': pa.Column('datetime64'),
+    'datetime_column': pa.Column('datetime64', checks=[
+        pa.Check(lambda x: x < datetime.now(),
+                 error="Date shouldn't be on future")
+    ]),
     'email_column': pa.Column(str, checks=[
         pa.Check.str_contains('@', error="Email must contain @"),
         pa.Check.str_contains('.', error="Email must contain . (dot)")
