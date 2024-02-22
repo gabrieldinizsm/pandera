@@ -66,12 +66,20 @@ schema = pa.DataFrameSchema({
     'int_column': pa.Column('int32'),
     'float_column': pa.Column('float64'),
     'datetime_column': pa.Column('datetime64'),
-    'email_column': pa.Column(str)
+    'email_column': pa.Column(str, checks=[
+        pa.Check.str_contains('!', error="Email must contain @"),
+        pa.Check.str_contains('.', error="Email must contain . (dot)")
+    ])
 })
 
 
 if __name__ == '__main__':
 
-    df = generate_fake_df(100)
+    try:
+        df = generate_fake_df(100)
 
-    validated_df = schema(df)
+        validated_df = schema(df)
+
+    except Exception as e:
+        print(e)
+        raise
