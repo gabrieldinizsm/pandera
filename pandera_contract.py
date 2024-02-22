@@ -2,6 +2,7 @@ import pandas as pd
 import pandera as pa
 import numpy as np
 from faker import Faker
+from datetime import datetime
 
 
 np.random.seed(42)
@@ -60,6 +61,19 @@ def generate_fake_df(num_rows: int) -> pd.DataFrame:
         raise (e)
 
 
+schema = pa.DataFrameSchema(
+    {
+        'string_column': pa.Column(str),
+        'int_column': pa.Column('int32'),
+        'float_column': pa.Column(float),
+        'datetime_column': pa.Column(datetime),
+        'email_column': pa.Column(str)
+    }
+)
+
+
 if __name__ == '__main__':
 
-    df = generate_fake_df(10)
+    df = generate_fake_df(100)
+
+    validated_df = schema(df)
